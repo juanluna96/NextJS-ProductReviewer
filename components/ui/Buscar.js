@@ -32,7 +32,7 @@ const Buscar = () => {
     return (
         <form css={ css`position:relative;` }>
             <InputText type="text" placeholder="Buscar productos" />
-            <InputSubmit type="submit">Buscar</InputSubmit>
+            <InputSubmit type="submit"></InputSubmit>
         </form>
     )
 }

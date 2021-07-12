@@ -29,7 +29,7 @@ const Layout = props => {
             line-height: 1.5;
         }
         h1,h2{
-            font-family:'Roboto Slab',serif;
+            /* font-family:'Roboto Slab',serif; */
             font-weight: 700;
         }
         h3{
@@ -51,7 +51,7 @@ const Layout = props => {
                 <title>Product reviewer Firebase y Next.js</title>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossOrigin="anonymous" referrerpolicy="no-referrer" />
                 <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-                <link rel="stylesheet" href="/statoc/css/app.css" />
+                <link rel="stylesheet" href="/static/css/app.css" />
             </Head>
             <Header></Header>
             <main>
