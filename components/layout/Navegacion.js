@@ -3,11 +3,11 @@ import Link from 'next/link';
 import styled from '@emotion/styled';
 
 const Nav = styled.nav`
-    padding-left:2rem;
-
+    margin: 1rem 0;
+    
     a{
         font-size:1.8rem;
-        margin-left: 2rem;
+        margin: 0 1.1rem;
         color:var(--gris2);
         font-family: 'PT Sans',sans-serif;
 
