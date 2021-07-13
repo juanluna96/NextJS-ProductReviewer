@@ -6,6 +6,7 @@ import { Formulario, Campo, InputSubmit, Error } from '../components/ui/Formular
 // Validaciones
 import useValidacion from '../hooks/useValidacion';
 import validarCrearCuenta from '../validacion/validarCrearCuenta';
+import firebase from '../firebase';
 
 const STATE_INICIAL = {
     nombre: '',
@@ -14,13 +15,17 @@ const STATE_INICIAL = {
 }
 
 const CrearCuenta = () => {
-    const crearCuenta = () => {
-        console.log('Creando cuenta...');
-    }
-
     const { valores, errores, submitForm, handleBur, handleSubmit, handleChange } = useValidacion(STATE_INICIAL, validarCrearCuenta, crearCuenta);
 
     const { nombre, email, password } = valores;
+
+    async function crearCuenta() {
+        try {
+            firebase.registrar(nombre, email, password);
+        } catch (error) {
+            console.error(`Hubo un error al crear el usuario `, error.message);
+        }
+    }
 
     return (
         <div>
