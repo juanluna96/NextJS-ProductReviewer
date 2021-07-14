@@ -3,22 +3,45 @@ import styled from "@emotion/styled"
 const Formulario = styled.form`
     max-width:600px;
     width: 95%;
-    margin: 5rem auto 0 auto;
+    margin: 5rem auto 2rem auto;
+
+    fieldset{
+        margin:2rem 0;
+        border: 1px solid #e1e1e1;
+        font-size:2rem;
+        padding:2rem;
+    }
 `;
 
 const Campo = styled.div`
     margin-bottom: 2rem;
-    display:flex;
-    align-items:center;
+    @media (min-width: 768px) {
+            display:flex;
+            align-items:center;
+            flex-wrap:wrap;
+    }
+    width: 100%;
 
     label {
-        flex: 0 0 150px;
+        @media (min-width: 768px) {
+            flex: 0 0 150px;
+        }
+        display:block;
         font-size: 1.6rem;
     }
 
-    input {
-        flex: 1;
+    input,textarea {
+        @media (min-width: 768px) {
+            flex: 1;
+        }
+        width: 100%;
         padding: 1rem;
+    }
+
+    textarea{
+        width: 100%;
+        max-width:400px;
+        height:300px;
     }
 `;
 
