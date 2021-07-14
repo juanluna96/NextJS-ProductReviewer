@@ -8,6 +8,12 @@ const Boton = styled.a`
     margin-right:1rem;
     background-color: ${props => props.bgColor ? '#DA552F' : 'white'};
     color:${props => props.bgColor ? 'white' : '#000'};
+    width: 100%;
+    text-align: center;
+    
+    @media (min-width: 768px) {
+        max-width:25rem;
+    }
 
     &:last-of-type{
         margin-right: 0;

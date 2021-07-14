@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Layout from '../components/layout/Layout';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { css } from '@emotion/react';
 import { Formulario, Campo, InputSubmit, Error } from '../components/ui/Formulario';
 
 // Validaciones
 import useValidacion from '../hooks/useValidacion';
 import validarNuevoProducto from '../validacion/validarNuevoProducto';
-import firebase from '../firebase';
+import { FirebaseContext } from '../firebase';
 
 const STATE_INICIAL = {
     nombre: '',
@@ -20,12 +20,27 @@ const STATE_INICIAL = {
 const NuevoProducto = () => {
     const [error, setError] = useState(false);
 
-    const { valores, errores, handleBur, handleSubmit, handleChange } = useValidacion(STATE_INICIAL, validarNuevoProducto, nuevoProducto);
+    const { valores, errores, handleBur, handleSubmit, handleChange } = useValidacion(STATE_INICIAL, validarNuevoProducto, crearProducto);
 
-    const { nombre, empresa, url, descripcion } = valores;
+    const { nombre, empresa, imagen, url, descripcion } = valores;
 
-    function nuevoProducto() {
-        console.log('Creando un nuevo producto');
+    // Hook de routing para redireccionar
+    const router = useRouter();
+
+    // Context con las operaciones crud de firebase
+    const { usuario, firebase } = useContext(FirebaseContext);
+
+    async function crearProducto() {
+        // Si el usuario no esta autenticado llevar al login
+        if (!usuario) {
+            return router.push('/login');
+        }
+        // Crear el objeto de nuevo producto
+        const producto = {
+            nombre, empresa, url, descripcion, votos: 0, comentarios: [], creado: Date.now()
+        }
+        // Insertarlo en la base de datos
+        firebase.db.collection('productos').add(producto);
     }
 
     return (
@@ -71,6 +86,8 @@ const NuevoProducto = () => {
                             </Campo>
                             { errores.descripcion && <Error>{ errores.descripcion }</Error> }
                         </fieldset>
+
+                        { error && <Error>{ error }</Error> }
 
                         <InputSubmit type="submit" value="Agregar producto" />
                     </Formulario>

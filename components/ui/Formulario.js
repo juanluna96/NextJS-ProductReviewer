@@ -33,6 +33,7 @@ const Campo = styled.div`
     input,textarea {
         width: 100%;
         padding: 1rem;
+        font-size:1.6rem;
         @media (min-width: 768px) {
             flex: 1;
         }
