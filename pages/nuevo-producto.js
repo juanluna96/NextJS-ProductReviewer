@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import Layout from '../components/layout/Layout';
 import Router, { useRouter } from 'next/router';
+import FileUploader from "react-firebase-file-uploader";
 import { css } from '@emotion/react';
 import { Formulario, Campo, InputSubmit, Error } from '../components/ui/Formulario';
 
@@ -12,12 +13,18 @@ import { FirebaseContext } from '../firebase';
 const STATE_INICIAL = {
     nombre: '',
     empresa: '',
-    // imagen: '',
+    imagen: '',
     url: '',
     descripcion: ''
 }
 
 const NuevoProducto = () => {
+    // State de las imagenes
+    const [nombreImagen, setNombreImagen] = useState('');
+    const [subiendo, setSubiendo] = useState(false);
+    const [progreso, setProgreso] = useState(0);
+    const [urlImagen, setUrlImagen] = useState('');
+
     const [error, setError] = useState(false);
 
     const { valores, errores, handleBur, handleSubmit, handleChange } = useValidacion(STATE_INICIAL, validarNuevoProducto, crearProducto);
@@ -37,11 +44,42 @@ const NuevoProducto = () => {
         }
         // Crear el objeto de nuevo producto
         const producto = {
-            nombre, empresa, url, descripcion, votos: 0, comentarios: [], creado: Date.now()
+            nombre, empresa, url, descripcion, urlImagen, votos: 0, comentarios: [], creado: Date.now()
         }
         // Insertarlo en la base de datos
         firebase.db.collection('productos').add(producto);
+
+        return router.push('/');
     }
+
+    const handleUploadStart = () => {
+        setProgreso(0);
+        setSubiendo(true);
+    };
+
+    const handleProgress = progreso => {
+        setProgreso({ progreso });
+    }
+
+    const handleUploadError = error => {
+        setSubiendo(error);
+        console.error(error);
+    };
+
+    const handleUploadSuccess = filename => {
+        setProgreso(100);
+        setSubiendo(false);
+        setNombreImagen(filename);
+        firebase
+            .storage
+            .ref("productos")
+            .child(filename)
+            .getDownloadURL()
+            .then(url => {
+                console.log(url);
+                setUrlImagen(url);
+            });
+    };
 
     return (
         <div>
@@ -66,11 +104,20 @@ const NuevoProducto = () => {
                                 <input type="text" id="empresa" placeholder="Tu empresa" name="empresa" value={ empresa } onChange={ handleChange } onBlur={ handleBur } />
                             </Campo>
                             { errores.empresa && <Error>{ errores.empresa }</Error> }
-                            {/* <Campo>
+                            <Campo>
                                 <label htmlFor="imagen">Imagen</label>
-                                <input type="file" id="imagen" name="imagen" value={ imagen } onChange={ handleChange } onBlur={ handleBur } />
+                                <FileUploader
+                                    accept="image/*"
+                                    id="imagen"
+                                    name="imagen"
+                                    randomizeFilename
+                                    storageRef={ firebase.storage.ref("productos") }
+                                    onUploadStart={ handleUploadStart }
+                                    onUploadError={ handleUploadError }
+                                    onUploadSuccess={ handleUploadSuccess }
+                                    onProgress={ handleProgress }
+                                />
                             </Campo>
-                            { errores.imagen && <Error>{ errores.imagen }</Error> } */}
                             <Campo>
                                 <label htmlFor="url">Enlace del producto</label>
                                 <input type="url" id="url" name="url" value={ url } onChange={ handleChange } onBlur={ handleBur } />
