@@ -6,13 +6,13 @@ import { Formulario, Campo, InputSubmit, Error } from '../components/ui/Formular
 
 // Validaciones
 import useValidacion from '../hooks/useValidacion';
-import validarCrearCuenta from '../validacion/validarCrearCuenta';
+import validarNuevoProducto from '../validacion/validarNuevoProducto';
 import firebase from '../firebase';
 
 const STATE_INICIAL = {
     nombre: '',
     empresa: '',
-    imagen: '',
+    // imagen: '',
     url: '',
     descripcion: ''
 }
@@ -20,9 +20,9 @@ const STATE_INICIAL = {
 const NuevoProducto = () => {
     const [error, setError] = useState(false);
 
-    const { valores, errores, handleBur, handleSubmit, handleChange } = useValidacion(STATE_INICIAL, validarCrearCuenta, nuevoProducto);
+    const { valores, errores, handleBur, handleSubmit, handleChange } = useValidacion(STATE_INICIAL, validarNuevoProducto, nuevoProducto);
 
-    const { nombre, empresa, imagen, url, descripcion } = valores;
+    const { nombre, empresa, url, descripcion } = valores;
 
     function nuevoProducto() {
         console.log('Creando un nuevo producto');
@@ -51,11 +51,11 @@ const NuevoProducto = () => {
                                 <input type="text" id="empresa" placeholder="Tu empresa" name="empresa" value={ empresa } onChange={ handleChange } onBlur={ handleBur } />
                             </Campo>
                             { errores.empresa && <Error>{ errores.empresa }</Error> }
-                            <Campo>
+                            {/* <Campo>
                                 <label htmlFor="imagen">Imagen</label>
                                 <input type="file" id="imagen" name="imagen" value={ imagen } onChange={ handleChange } onBlur={ handleBur } />
                             </Campo>
-                            { errores.imagen && <Error>{ errores.imagen }</Error> }
+                            { errores.imagen && <Error>{ errores.imagen }</Error> } */}
                             <Campo>
                                 <label htmlFor="url">Enlace del producto</label>
                                 <input type="url" id="url" name="url" value={ url } onChange={ handleChange } onBlur={ handleBur } />

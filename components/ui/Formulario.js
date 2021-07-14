@@ -15,31 +15,30 @@ const Formulario = styled.form`
 
 const Campo = styled.div`
     margin-bottom: 2rem;
+    width: 100%;
     @media (min-width: 768px) {
             display:flex;
             align-items:center;
             flex-wrap:wrap;
     }
-    width: 100%;
 
     label {
+        display:block;
+        font-size: 1.6rem;
         @media (min-width: 768px) {
             flex: 0 0 150px;
         }
-        display:block;
-        font-size: 1.6rem;
     }
 
     input,textarea {
+        width: 100%;
+        padding: 1rem;
         @media (min-width: 768px) {
             flex: 1;
         }
-        width: 100%;
-        padding: 1rem;
     }
 
     textarea{
-        width: 100%;
         max-width:400px;
         height:300px;
     }
