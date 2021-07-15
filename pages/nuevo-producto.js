@@ -44,7 +44,7 @@ const NuevoProducto = () => {
         }
         // Crear el objeto de nuevo producto
         const producto = {
-            nombre, empresa, url, descripcion, urlImagen, votos: 0, comentarios: [], creado: Date.now()
+            nombre, empresa, url, descripcion, urlImagen, votos: 0, comentarios: [], creado: Date.now(), creador: { id: usuario.uid, nombre: usuario.displayName }
         }
         // Insertarlo en la base de datos
         firebase.db.collection('productos').add(producto);
