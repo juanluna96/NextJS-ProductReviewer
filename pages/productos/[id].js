@@ -10,6 +10,7 @@ import Image from 'next/image';
 import Error404 from '../../components/layout/Error404';
 import Layout from '../../components/layout/Layout';
 import { Campo, InputSubmit } from '../../components/ui/Formulario';
+import Boton from '../../components/ui/Boton';
 
 const ContenedorProducto = styled.div`
     @media (min-width: 768px) {
@@ -86,7 +87,13 @@ const Producto = () => {
                                 </li>
                             )) }
                         </div>
-                        <aside>2</aside>
+                        <aside>
+                            <Boton target="_blank" fullWidth bgColor="true" href={ url }>Visitar URL</Boton>
+                            <div css={ css`margin-top: 5 rem;` }>
+                                <Boton fullWidth>Votar</Boton>
+                                <p css={ css`text-align:center;` }>{ votos } Votos</p>
+                            </div>
+                        </aside>
                     </ContenedorProducto>
                 </div>
             </>
