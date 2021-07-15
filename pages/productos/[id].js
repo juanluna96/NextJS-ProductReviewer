@@ -3,9 +3,13 @@ import { useRouter } from 'next/router';
 import { FirebaseContext } from '../../firebase';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { es } from 'date-fns/locale';
+import Image from 'next/image';
 
 import Error404 from '../../components/layout/Error404';
 import Layout from '../../components/layout/Layout';
+import { Campo, InputSubmit } from '../../components/ui/Formulario';
 
 const ContenedorProducto = styled.div`
     @media (min-width: 768px) {
@@ -14,7 +18,6 @@ const ContenedorProducto = styled.div`
         column-gap: 2rem;
     }
 `;
-
 
 const Producto = () => {
     // State del componente
@@ -57,7 +60,32 @@ const Producto = () => {
                         margin-top: 5rem; 
                     `}>{ nombre }</h1>
                     <ContenedorProducto>
-                        <div>1</div>
+                        <div>
+                            <p>Publicado hace: { formatDistanceToNow(new Date(creado), { locale: es }) }</p>
+                            <Image
+                                src={ urlImagen }
+                                alt={ nombre }
+                                width={ 700 }
+                                height={ 350 }
+                                layout="responsive"
+                                quality={ 65 }
+                            />
+                            <p>{ descripcion }</p>
+                            <h2>Agrega tu comentario</h2>
+                            <form>
+                                <Campo>
+                                    <input type="text" name="mensaje" />
+                                </Campo>
+                                <InputSubmit type="submit" value="Agregar comentario"></InputSubmit>
+                            </form>
+                            <h2 css={ css`margin: 2rem 0;` }>Comentarios</h2>
+                            { comentarios.map((comentario) => (
+                                <li key={ comentario.id }>
+                                    <p>{ comentario.nombre }</p>
+                                    <p>Escrito por: { comentario.usuarioNombre }</p>
+                                </li>
+                            )) }
+                        </div>
                         <aside>2</aside>
                     </ContenedorProducto>
                 </div>
