@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { es } from 'date-fns/locale';
 import styled from '@emotion/styled';
@@ -105,7 +106,9 @@ const DetallesProducto = ({ producto }) => {
                 </div>
                 <ContenidoProducto>
                     <div>
-                        <Titulo>{ nombre }</Titulo>
+                        <Link passHref href="/productos/[id]" as={ `/productos/${id}` }>
+                            <Titulo>{ nombre }</Titulo>
+                        </Link>
                         <TextoDescripcion>{ descripcion }</TextoDescripcion>
                         <Comentarios>
                             <div className="">
