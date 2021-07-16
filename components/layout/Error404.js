@@ -6,7 +6,7 @@ const Error404 = () => {
         <h1 css={ css`
             margin-top: 5rem;
             text-align: center;
-        `}></h1>
+        `}>La pagina que estas buscando no se encuentra disponible</h1>
     )
 }
 

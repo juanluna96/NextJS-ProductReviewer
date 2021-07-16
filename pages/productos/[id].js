@@ -29,7 +29,7 @@ const Producto = () => {
     const router = useRouter();
     const { id } = router.query;
 
-    const { firebase } = useContext(FirebaseContext);
+    const { firebase, usuario } = useContext(FirebaseContext);
 
     useEffect(() => {
         if (id) {
@@ -73,25 +73,33 @@ const Producto = () => {
                                 quality={ 65 }
                             />
                             <p>{ descripcion }</p>
-                            <h2>Agrega tu comentario</h2>
-                            <form>
-                                <Campo>
-                                    <input type="text" name="mensaje" />
-                                </Campo>
-                                <InputSubmit type="submit" value="Agregar comentario"></InputSubmit>
-                            </form>
-                            <h2 css={ css`margin: 2rem 0;` }>Comentarios</h2>
-                            { comentarios.map((comentario) => (
-                                <li key={ comentario.id }>
-                                    <p>{ comentario.nombre }</p>
-                                    <p>Escrito por: { comentario.usuarioNombre }</p>
-                                </li>
-                            )) }
+                            { usuario && (
+                                <>
+                                    <h2>Agrega tu comentario</h2>
+                                    <form>
+                                        <Campo>
+                                            <input type="text" name="mensaje" />
+                                        </Campo>
+                                        <InputSubmit type="submit" value="Agregar comentario"></InputSubmit>
+                                    </form>
+                                </>
+                            ) }
+                            { comentarios.length > 0 &&
+                                <>
+                                    <h2 css={ css`margin: 2rem 0;` }>Comentarios</h2>
+                                    { comentarios.map((comentario) => (
+                                        <li key={ comentario.id }>
+                                            <p>{ comentario.nombre }</p>
+                                            <p>Escrito por: { comentario.usuarioNombre }</p>
+                                        </li>
+                                    )) }
+                                </>
+                            }
                         </div>
                         <aside>
                             <Boton target="_blank" fullWidth bgColor="true" href={ url }>Visitar URL</Boton>
-                            <div css={ css`margin-top: 5 rem;` }>
-                                <Boton fullWidth>Votar</Boton>
+                            <div css={ css`margin-top: 5rem;` }>
+                                { usuario && <Boton fullWidth>Votar</Boton> }
                                 <p css={ css`text-align:center;` }>{ votos } Votos</p>
                             </div>
                         </aside>
