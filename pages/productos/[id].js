@@ -20,14 +20,14 @@ const ContenedorProducto = styled.div`
     }
 `;
 
-const P = styled.p`
-  padding: .5rem 2rem;
-  background-color: #DA552F;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: bold;
-  display:inline-block;
-  text-align:center;
+const CreadorProducto = styled.p`
+    padding: .5rem 2rem;
+    background-color: #DA552F;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    display:inline-block;
+    text-align:center;
 `;
 
 
